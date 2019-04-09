@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Linq;
 using System.Web;
 
@@ -18,6 +19,12 @@ namespace Multas.Models
         public virtual DbSet<Agentes> Agentes { get; set; } // tabela Agentes
         public virtual DbSet<Viaturas> Viaturas { get; set; } // tabela Viaturas
 
-
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            // eliminar a convenção de atribuir automaticamente o 'on Delete Cascade' nas FKs
+            modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
+            modelBuilder.Conventions.Remove<ManyToManyCascadeDeleteConvention>();
+            base.OnModelCreating(modelBuilder);
+        }
     }
 }
