@@ -35,27 +35,48 @@ namespace Multas.Controllers
             return View(agentes);
         }
 
+        /// <summary>
+        /// Recolhe os dados da view, sobe um novo Agente
+        /// </summary>
+        /// <returns></returns>
         // GET: Agentes/Create
         public ActionResult Create()
         {
             return View();
         }
 
+        /// <summary>
+        /// Recolhe os dados da view, sobe um novo Agente
+        /// </summary>
+        /// <param name="agente"></param>
+        /// <param name="fotografia"></param>
+        /// <returns></returns>
         // POST: Agentes/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Nome,Esquadra,Fotografia")] Agentes agentes)
+        public ActionResult Create([Bind(Include = "Nome,Esquadra")] Agentes agente, HttpPostedFileBase fotografia)
         {
+            // Confronta os dados que vêm da view com a forma que os dados devem ter,
+            // ie, valida os dados com o Modelo
             if (ModelState.IsValid)
             {
-                db.Agentes.Add(agentes);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                try
+                {
+                    db.Agentes.Add(agente);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                catch (Exception)
+                {
+
+                    throw;
+                }
+                
             }
 
-            return View(agentes);
+            return View(agente);
         }
 
         // GET: Agentes/Edit/5

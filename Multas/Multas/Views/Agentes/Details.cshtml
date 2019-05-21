@@ -1,7 +1,7 @@
 ﻿@model Multas.Models.Agentes
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Detalhes";
 }
 
 <h2>Details</h2>
@@ -27,16 +27,40 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Fotografia)
+            <img src="'~/imagens/@Html.DisplayNameFor(model => model.Fotografia)" />
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Fotografia)
+            
         </dd>
 
     </dl>
+
+    @* Apresentação das multas do Agente listado na parte de cima da View *@
+    <hr />
+    <h3>Multas associadas ao(à) Agente</h3>
+    
+    <table class="table">
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.ListaDeMultas.FirstOrDefault().DataDaMulta)</th>
+            <th>@Html.DisplayNameFor(model => model.ListaDeMultas.FirstOrDefault().LocalDaMulta)</th>
+            <th>@Html.DisplayNameFor(model => model.ListaDeMultas.FirstOrDefault().Condutor)</th>
+            <th>@Html.DisplayNameFor(model => model.ListaDeMultas.FirstOrDefault().Viatura)</th>
+        </tr>
+
+        @foreach(var multa in Model.ListaDeMultas)
+        {
+        <tr>
+            <td>@multa.DataDaMulta</td>
+            <td>@multa.LocalDaMulta</td>
+            <td>@multa.Condutor.Nome</td>
+            <td>@multa.Viatura.Matricula</td>
+        </tr>
+        }
+
+    </table>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Editar", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Regressar à Listagem dos Agentes", "Index")
 </p>

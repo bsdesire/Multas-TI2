@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
@@ -12,6 +13,7 @@ namespace Multas.Models
 
         public string Infracao { get; set; }
 
+        [Display(Name = "Local da Multa")]
         public string LocalDaMulta { get; set; }
 
         public decimal ValorMulta { get; set; }
